@@ -3,9 +3,26 @@
 # Licensed under the MIT License. See LICENSE in the project root for license information.
 #-----------------------------------------------------------------------------------------
 
-from flask import Flask
-app = Flask(__name__)
+import random
 
-@app.route("/")
-def hello():
-    return app.send_static_file("index.html")
+def play():
+    user = input("What's your choice? 'r' for rock, 'p' for paper, 's' for scissors\n")
+    user = user.lower()
+
+    computer = random.choice(['r', 'p', 's'])
+
+    if user == computer:
+        return 'It\'s a tie'
+
+    if is_win(user, computer):
+        return 'You won!'
+
+    return 'You lost!'
+
+def is_win(player, opponent):
+    # return true if player wins
+    # r > s, s > p, p > r
+    if (player == 'r' and opponent == 's') or (player == 's' and opponent == 'p') or (player == 'p' and opponent == 'r'):
+        return True
+
+print(play())
